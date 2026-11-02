@@ -16,3 +16,47 @@ a:hover{
 .logout{
     cursor: pointer;
 }
+
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, #1e1b4b, #0b0b1a 70%);
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  /* the color fades to transparent, so the edge melts into the background */
+  background: radial-gradient(circle, var(--color) 0%, transparent 70%);
+  filter: blur(30px);
+  opacity: 0.45;
+  transform: scale(1);
+  transition: transform 0.8s ease, opacity 0.8s ease, filter 0.8s ease;
+  animation: drift 12s ease-in-out infinite alternate;
+}
+
+.circle:hover {
+  transform: scale(1.35);
+  opacity: 0.9;
+  filter: blur(20px);
+}
+
+.c1 { --color: #7c3aed; width: 360px; height: 360px; left: 5%;  top: 10%; }
+.c2 { --color: #ec4899; width: 440px; height: 440px; right: 5%; top: 5%;  animation-delay: -4s; }
+.c3 { --color: #3b82f6; width: 320px; height: 320px; left: 35%; bottom: 5%; animation-delay: -8s; }
+.c4 { --color: #14b8a6; width: 380px; height: 380px; right: 10%; bottom: 10%; animation-delay: -2s; }
+
+@keyframes drift {
+  to { translate: 400px -30px; }
+}
+
+/* Let the mouse pass through the page layer so the circles can be hovered
+   wherever no content sits on top of them */
+main { pointer-events: none; }
+main > * { pointer-events: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .circle { animation: none; transition: none; }
+}

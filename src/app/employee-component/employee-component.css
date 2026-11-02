@@ -6,18 +6,23 @@ h2{
     place-self: center;
     margin: 10px 0;
     font-weight: 700;
+    color: #f8d8e9;
 
 }
 
+.btn-container{
+    margin: 1% 47%;
+}
+
 .btn-mine{
-    margin-left: 45%;
     background-color: #ffd4ec;
     border: 2px solid #f849a9;
     box-shadow: 2px 2px 5px black;
 }
 
 table{
-    margin: 10px auto;
+    width: 70%;
+    margin: auto;
     border: 2px solid #f849a9;
     box-shadow: 2px 2px 5px black;
 }
