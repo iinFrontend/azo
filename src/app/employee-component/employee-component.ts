@@ -13,7 +13,8 @@ export class EmployeeComponent {
   builder = inject(FormBuilder)
   employeeApi = inject(EmployeeService)
 
-  employees!: any[]
+  employees: any[] = [];
+  // employees = signal<any[]>([])
 
   employeeForm = this.builder.group({
     name: [''],
@@ -25,16 +26,27 @@ export class EmployeeComponent {
   visibleModal = false
 
   ngOnInit() {
-    this.getEmployees()
+    const token = localStorage.getItem('token');
+    if(token){
+      this.getEmployees()
+    } else {
+      console.warn('no token found');
+    }
+    
   }
 
   getEmployees() {
     this.employeeApi.getEmployees().subscribe({
       next: (res: any) => {
         console.log(res)
-        this.employees = res.data
+        this.employees = res.data;
+
+        this.employees = Array.isArray(res) ? res : (res?.data || []);
       },
-      error: () => {}
+      error: (err) => {
+        console.error('Failed to load employees:', err);
+        this.employees = [];
+      }
     })
   }
 
@@ -43,16 +55,17 @@ export class EmployeeComponent {
   }
 
   saveEmployee() {
-    console.log("Mentés...")
     this.createEmployee()
-    this.toggleModal()
   }
 
   createEmployee() {
     // szogáltatás hívása
     this.employeeApi.createEmployee(this.employeeForm.value).subscribe({
       next: (data) => {
-        console.log(data)
+        console.log(data);
+        this.getEmployees();
+        this.employeeForm.reset();
+        this.toggleModal();
       },
       error: (err) => {
         console.error(err)
