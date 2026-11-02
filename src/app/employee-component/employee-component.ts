@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeService } from '../shared/employee-service';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -8,13 +9,14 @@ import { EmployeeService } from '../shared/employee-service';
   styleUrl: './employee-component.css',
   templateUrl: './employee-component.html',
 })
-export class EmployeeComponent {
+export class EmployeeComponent implements OnInit {
 
   builder = inject(FormBuilder)
   employeeApi = inject(EmployeeService)
 
-  employees: any[] = [];
-  // employees = signal<any[]>([])
+
+  // employees: any[] = [];
+  employees = signal<any[]>([])
 
   employeeForm = this.builder.group({
     name: [''],
@@ -35,20 +37,19 @@ export class EmployeeComponent {
     
   }
 
-  getEmployees() {
+   getEmployees() {
     this.employeeApi.getEmployees().subscribe({
       next: (res: any) => {
         console.log(res)
-        this.employees = res.data;
-
-        this.employees = Array.isArray(res) ? res : (res?.data || []);
+        this.employees.set(Array.isArray(res) ? res : (res?.data ?? []));
       },
       error: (err) => {
         console.error('Failed to load employees:', err);
-        this.employees = [];
+        this.employees.set([]);
       }
-    })
+    });
   }
+
 
   toggleModal() {
     this.visibleModal = ! this.visibleModal

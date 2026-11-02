@@ -1,3 +1,34 @@
 .modal {
     display: block;
 }
+
+h2{
+    place-self: center;
+    margin: 10px 0;
+    font-weight: 700;
+
+}
+
+.btn-mine{
+    margin-left: 45%;
+    background-color: #ffd4ec;
+    border: 2px solid #f849a9;
+    box-shadow: 2px 2px 5px black;
+}
+
+table{
+    margin: 10px auto;
+    border: 2px solid #f849a9;
+    box-shadow: 2px 2px 5px black;
+}
+
+tr, td, th{
+    background-color: #f8d8e9;
+    padding: 10px;
+    border: 2px solid #f849a9;
+
+}
+
+th{
+    background-color: #ff83c7;
+}

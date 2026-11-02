@@ -1,0 +1,18 @@
+nav{
+    background: #f8d8e9
+    
+}
+
+a{
+    color: #f849a9;
+}
+
+a:hover{
+    color:#ad1368;
+    background: #faa2d2
+}
+
+
+.logout{
+    cursor: pointer;
+}

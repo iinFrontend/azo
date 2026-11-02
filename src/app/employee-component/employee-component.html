@@ -1,6 +1,6 @@
 <h2>Dolgozók</h2>
 
-<button class="btn btn-primary" (click)="toggleModal()">Hozzáad</button>
+<button class="btn-mine" (click)="toggleModal()">Hozzáad</button>
 
 
 <table>
@@ -14,7 +14,7 @@
     </tr>
   </thead>
   <tbody>
-    @for( emp of employees ; track emp.id) {
+    @for( emp of employees() ; track emp.id) {
       <tr>
         <td>{{emp.id}}</td>
         <td>{{emp.name}}</td>

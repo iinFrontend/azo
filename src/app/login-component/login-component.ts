@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../shared/auth-service';
+import { Router } from '@angular/router';
+import { EmployeeComponent } from '../employee-component/employee-component';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -10,7 +12,8 @@ import { AuthService } from '../shared/auth-service';
 })
 export class LoginComponent {
   builder = inject(FormBuilder)
-  authApi = inject(AuthService)
+  auth = inject(AuthService)
+  router = inject(Router)
 
   loginForm = this.builder.group({
     name: ['mari'],
@@ -21,10 +24,10 @@ export class LoginComponent {
     console.log("Belépés...")
     console.log(this.loginForm.value)
 
-    this.authApi.login(this.loginForm.value).subscribe({
+    this.auth.login(this.loginForm.value).subscribe({
       next: (data: any) => {
-        console.log(data)
         localStorage.setItem("token", data.accessToken)
+        this.router.navigate(['employee']);
       },
       error: (err) => {
         console.error(err)
